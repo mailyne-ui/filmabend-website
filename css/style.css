@@ -115,7 +115,7 @@ body {
 
 .hero-sub {
   font-size: 16px;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.88);
   line-height: 1.7;
   font-weight: 300;
   max-width: 480px;
@@ -137,33 +137,62 @@ body {
   50% { transform: translateY(10px); opacity: 1; }
 }
 
-/* --- Kapitel --- */
+/* --- Kapitel: zweispaltiges Layout --- */
 .chapter {
   min-height: 100vh;
-  padding: 100px 10% 80px;
+  padding: 80px 6%;
   background: var(--kinonacht);
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 0;
 }
 
 .chapter.chapter-dark { background: var(--dunkel); }
 
+/* Kapitel-Innenlayout: Text + Diagrammbereich nebeneinander */
+.chapter-split {
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  width: 100%;
+  min-height: 0;
+}
+
+/* Kapitel 2 und 4: Text rechts, Diagramm links */
+.chapter-split.reverse {
+  flex-direction: row-reverse;
+}
+
+/* Textspalte: 38% */
+.chapter-text-col {
+  flex: 0 0 38%;
+  max-width: 38%;
+  position: sticky;
+  top: 80px;
+}
+
+/* Diagrammspalte: Rest */
+.chapter-chart-col {
+  flex: 1;
+  min-width: 0;
+}
+
 .chapter-label {
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   color: var(--rot);
   text-transform: uppercase;
   display: block;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .chapter-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(32px, 5vw, 56px);
+  font-size: clamp(28px, 3.8vw, 48px);
   color: var(--weiss);
   line-height: 1.1;
   margin-bottom: 20px;
@@ -172,13 +201,29 @@ body {
 
 .chapter-body {
   font-size: 15px;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.88);
   line-height: 1.75;
-  max-width: 560px;
   font-weight: 300;
   margin-bottom: 16px;
 }
 
+/* Responsive: unter 900px wieder untereinander */
+@media (max-width: 900px) {
+  .chapter {
+    padding: 60px 6%;
+  }
+  .chapter-split,
+  .chapter-split.reverse {
+    flex-direction: column;
+  }
+  .chapter-text-col {
+    flex: none;
+    max-width: 100%;
+    position: static;
+  }
+}
+
+/* --- Cliffhanger: eigene Übergangsseite zwischen den Kapiteln --- */
 .cliffhanger-section {
   min-height: 100vh;
   display: flex;
@@ -193,15 +238,24 @@ body {
 
 .cliffhanger-inner {
   max-width: 640px;
-  text-align: left;
+  text-align: center;
 }
 
 .cliffhanger-title {
   font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(28px, 4.2vw, 48px);
+  font-size: clamp(28px, 3.8vw, 48px);
   color: var(--weiss);
-  line-height: 1.15;
+  line-height: 1.1;
   letter-spacing: 0.02em;
+  margin-bottom: 20px;
+}
+
+.cliffhanger-body {
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.88);
+  line-height: 1.75;
   margin-bottom: 28px;
 }
 

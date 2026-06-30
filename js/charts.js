@@ -139,9 +139,9 @@ function drawChart1(metric) {
     };
 
     const titles = {
-      kinobesucher_mio:          ['Wie stabil war das Kino wirklich?', 'Kinobesucher 2000–2013'],
-      kinoumsatz_mio_eur:        ['Stieg der Umsatz trotz schwankender Besucherzahlen?', 'Kinoumsatz 2000–2013'],
-      durchschn_ticketpreis_eur: ['Wurde Kino schon damals teurer?', 'Ø Ticketpreis 2000–2013']
+      kinobesucher_mio:          ['Das Kino dominiert', 'Kinobesucher in Deutschland 2000–2013, in Millionen'],
+      kinoumsatz_mio_eur:        ['Stabile Einnahmen, trotz Schwankungen', 'Kinoumsatz in Deutschland 2000–2013, in Mio. €'],
+      durchschn_ticketpreis_eur: ['Der Preis steigt – langsam, aber stetig', 'Ø Ticketpreis 2000–2013, in €']
     };
 
     const maxVal = { kinobesucher_mio: 200, kinoumsatz_mio_eur: 1200, durchschn_ticketpreis_eur: 10 };
@@ -249,7 +249,7 @@ function drawChart2() {
     const innerH = H - margin.top - margin.bottom;
 
     d3.select('#chart-2').selectAll('*').remove();
-    addChartHeader(container, 'Wann überholt Streaming das Kino?', 'Umsatzvergleich Kino vs. SVoD, 2014–2019');
+    addChartHeader(container, 'Streaming holt auf', 'Kinoumsatz vs. Streaming-Umsatz in Deutschland 2014–2019, in Mio. €');
     addHtmlLegend(container, [
       { key: 'kino',      label: 'Kinoumsatz',             color: FARBEN.rot },
       { key: 'streaming', label: 'Streaming-Umsatz (SVoD)', color: '#5B6BC4' }
@@ -285,6 +285,24 @@ function drawChart2() {
       .attr('stroke-dasharray', function() { const len = this.getTotalLength(); return `${len} ${len}`; })
       .attr('stroke-dashoffset', function() { return this.getTotalLength(); })
       .transition().duration(1800).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+
+    // Labels bei 2016 platzieren — dort liegen die Linien weit auseinander
+    const labelYear = merged.find(d => d.jahr === 2016);
+    if (labelYear) {
+      svg.append('text')
+        .style('font-family', 'Inter, sans-serif').style('font-size', '11px')
+        .style('font-weight', '600').style('fill', FARBEN.rot)
+        .attr('x', x(2016) - 4).attr('y', y(labelYear.kino) - 22)
+        .attr('text-anchor', 'middle')
+        .text('Kinoumsatz');
+
+      svg.append('text')
+        .style('font-family', 'Inter, sans-serif').style('font-size', '11px')
+        .style('font-weight', '600').style('fill', '#5B6BC4')
+        .attr('x', x(2016) - 4).attr('y', y(labelYear.streaming) + 30)
+        .attr('text-anchor', 'middle')
+        .text('Streaming-Umsatz');
+    }
 
     merged.forEach(d => {
       [{ key: 'kino', color: FARBEN.rot }, { key: 'streaming', color: '#5B6BC4' }].forEach(serie => {
@@ -333,7 +351,7 @@ function drawChart3() {
     const innerH = H - margin.top - margin.bottom;
 
     d3.select('#chart-3').selectAll('*').remove();
-    addChartHeader(container, 'Wie groß war der Corona-Einbruch wirklich?', 'Kinobesucher 2017–2023');
+    addChartHeader(container, 'Der tiefste Einbruch der Zeitreihe', 'Kinobesucher in Deutschland 2017–2023, in Millionen');
 
     const svg = d3.select('#chart-3')
       .append('svg')
@@ -407,9 +425,9 @@ function drawChart4(metric) {
     };
 
     const titles = {
-      kinobesucher_mio:          ['Kehrt das Publikum zurück?', 'Kinobesucher seit 2019'],
-      kinoumsatz_mio_eur:        ['Erholt sich der Umsatz schneller als die Besucherzahl?', 'Kinoumsatz seit 2019'],
-      durchschn_ticketpreis_eur: ['Wird Kino teurer?', 'Ø Ticketpreis seit 2019']
+      kinobesucher_mio:          ['Das Publikum kommt zurück', 'Kinobesucher in Deutschland 2019–2025, in Millionen'],
+      kinoumsatz_mio_eur:        ['Höhere Preise stützen den Umsatz', 'Kinoumsatz in Deutschland 2019–2025, in Mio. €'],
+      durchschn_ticketpreis_eur: ['Kino wird teurer', 'Ø Ticketpreis 2019–2025, in €']
     };
 
     const container = document.getElementById('chart-4');
@@ -490,6 +508,121 @@ function drawChart4(metric) {
 }
 
 // ============================================
+// CHART 4b — Kapitel 4: Kino vs. Streaming-Umsatz 2019–2025
+// ============================================
+function drawChart4b() {
+  Promise.all([
+    d3.csv('data/kino_de.csv', d3.autoType),
+    d3.csv('data/streaming_de.csv', d3.autoType)
+  ]).then(([kino, streaming]) => {
+
+    const merged = kino
+      .filter(d => d.jahr >= 2019 && d.jahr <= 2025)
+      .map(d => {
+        const s = streaming.find(x => x.jahr === d.jahr);
+        return { jahr: d.jahr, kino: d.kinoumsatz_mio_eur, streaming: s ? s.svod_umsatz_mio_eur : null };
+      })
+      .filter(d => d.streaming !== null);
+
+    const container = document.getElementById('chart-4b');
+    const W = Math.max(container.clientWidth, 320);
+    const H = 300;
+    const margin = { top: 16, right: 30, bottom: 44, left: 70 };
+    const innerW = W - margin.left - margin.right;
+    const innerH = H - margin.top - margin.bottom;
+
+    d3.select('#chart-4b').selectAll('*').remove();
+    addChartHeader(container, 'Streaming hat Kino längst überholt', 'Kinoumsatz vs. Streaming-Umsatz in Deutschland 2019–2025, in Mio. €');
+    addHtmlLegend(container, [
+      { key: 'kino',      label: 'Kinoumsatz',             color: FARBEN.rot },
+      { key: 'streaming', label: 'Streaming-Umsatz (SVoD)', color: '#5B6BC4' }
+    ]);
+
+    const svg = d3.select('#chart-4b')
+      .append('svg')
+      .attr('viewBox', `0 0 ${W} ${H}`)
+      .append('g')
+      .attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const x = d3.scaleLinear().domain([2019, 2025]).range([0, innerW]);
+    const maxVal = d3.max(merged, d => Math.max(d.kino, d.streaming)) * 1.15;
+    const y = d3.scaleLinear().domain([0, maxVal]).range([innerH, 0]);
+
+    svg.append('g').attr('class', 'grid')
+      .call(d3.axisLeft(y).tickSize(-innerW).tickFormat(''));
+
+    const xAxis = svg.append('g').attr('class', 'axis')
+      .attr('transform', `translate(0,${innerH})`)
+      .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(7));
+
+    svg.append('g').attr('class', 'axis')
+      .call(d3.axisLeft(y).tickFormat(d => d).ticks(5));
+
+    addAxisLabels(svg, innerW, innerH, 'Jahr', 'Umsatz pro Jahr, in Mio. €');
+
+    // Corona-Hintergrund 2020–2021
+    svg.append('rect').attr('class', 'year-highlight')
+      .attr('x', x(2019.5)).attr('width', x(2021.5) - x(2019.5))
+      .attr('y', 0).attr('height', innerH);
+
+    const lineKino = d3.line().x(d => x(d.jahr)).y(d => y(d.kino)).curve(d3.curveCatmullRom);
+    svg.append('path').datum(merged).attr('class', 'chart-line').attr('stroke', FARBEN.rot).attr('d', lineKino)
+      .attr('stroke-dasharray', function() { const l = this.getTotalLength(); return `${l} ${l}`; })
+      .attr('stroke-dashoffset', function() { return this.getTotalLength(); })
+      .transition().duration(1300).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+
+    const lineStreaming = d3.line().x(d => x(d.jahr)).y(d => y(d.streaming)).curve(d3.curveCatmullRom);
+    svg.append('path').datum(merged)
+      .attr('class', 'chart-line').attr('stroke', '#5B6BC4').attr('stroke-width', 3).attr('d', lineStreaming)
+      .attr('stroke-dasharray', function() { const l = this.getTotalLength(); return `${l} ${l}`; })
+      .attr('stroke-dashoffset', function() { return this.getTotalLength(); })
+      .transition().duration(1800).ease(d3.easeCubicOut).attr('stroke-dashoffset', 0);
+
+    // Statische Punkte
+    merged.forEach(d => {
+      [{ key: 'kino', color: FARBEN.rot }, { key: 'streaming', color: '#5B6BC4' }].forEach(serie => {
+        svg.append('circle')
+          .attr('class', 'data-point')
+          .attr('cx', x(d.jahr)).attr('cy', y(d[serie.key]))
+          .attr('r', 3).attr('fill', serie.color).attr('stroke', '#12162A').attr('stroke-width', 1.5);
+      });
+    });
+
+    // Labels bei 2021 — dort ist der Abstand groß und gut lesbar
+    const labelYear = merged.find(d => d.jahr === 2021);
+    if (labelYear) {
+      svg.append('text')
+        .style('font-family', 'Inter, sans-serif').style('font-size', '11px')
+        .style('font-weight', '600').style('fill', FARBEN.rot)
+        .attr('x', x(2021)).attr('y', y(labelYear.kino) - 22)
+        .attr('text-anchor', 'middle').text('Kinoumsatz');
+
+      svg.append('text')
+        .style('font-family', 'Inter, sans-serif').style('font-size', '11px')
+        .style('font-weight', '600').style('fill', '#5B6BC4')
+        .attr('x', x(2021)).attr('y', y(labelYear.streaming) + 30)
+        .attr('text-anchor', 'middle').text('Streaming-Umsatz');
+    }
+
+    const tooltip = createTooltip(container);
+    addHoverLine(svg, innerW, innerH, x, 2019, 2025, xAxis, (jahr, event) => {
+      const d = merged.find(dd => dd.jahr === jahr);
+      if (!d) return;
+      tooltip.classed('visible', true)
+        .html(`
+          <div class="tooltip-year">${d.jahr}</div>
+          <div class="tooltip-line"></div>
+          <div class="tooltip-row"><span class="tooltip-key">Kinoumsatz</span><span class="tooltip-val">${d.kino} Mio. €</span></div>
+          <div class="tooltip-row"><span class="tooltip-key">Streaming-Umsatz</span><span class="tooltip-val">${d.streaming} Mio. €</span></div>
+        `)
+        .style('left', (event.offsetX + 16) + 'px')
+        .style('top', (event.offsetY - 10) + 'px');
+    }, () => tooltip.classed('visible', false));
+
+  });
+}
+
+// ============================================
 // CHART 5 — Kapitel 5: Prognose T/S/A-VoD bis 2029
 // ============================================
 function drawChart5() {
@@ -503,7 +636,7 @@ function drawChart5() {
     const innerH = H - margin.top - margin.bottom;
 
     d3.select('#chart-5').selectAll('*').remove();
-    addChartHeader(container, 'Welches Segment wächst am stärksten?', 'Umsatzprognose nach Segment bis 2029');
+    addChartHeader(container, 'Streaming wächst – in allen Varianten', 'Umsatzentwicklung nach Streaming-Typ in Deutschland 2012–2024 und Prognose bis 2029, in Mrd. €');
 
     const svg = d3.select('#chart-5')
       .append('svg')

@@ -11,6 +11,7 @@ const navDots  = document.querySelectorAll('.nav-dot');
 
 function navIndexFor(id) {
   if (id.startsWith('section-')) return id.split('-')[1];
+  if (id === 'section-4b') return '4';
   if (id === 'cliff-1') return '1';
   if (id === 'cliff-2') return '2';
   if (id === 'cliff-3') return '3';
@@ -45,6 +46,10 @@ const observer = new IntersectionObserver((entries) => {
       if (id === 'section-4' && !window.chart4Loaded) {
         window.chart4Loaded = true;
         setTimeout(() => drawChart4('kinobesucher_mio'), 100);
+      }
+      if (id === 'section-4b' && !window.chart4bLoaded) {
+        window.chart4bLoaded = true;
+        setTimeout(() => drawChart4b(), 100);
       }
       if (id === 'section-5' && !window.chart5Loaded) {
         window.chart5Loaded = true;
@@ -81,6 +86,7 @@ window.addEventListener('resize', () => {
       const activeBtn = document.querySelector('[data-chart="chart-4"] .filter-btn.active');
       drawChart4(activeBtn ? activeBtn.getAttribute('data-metric') : 'kinobesucher_mio');
     }
+    if (window.chart4bLoaded) drawChart4b();
     if (window.chart5Loaded) drawChart5();
   }, 250);
 });
