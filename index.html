@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Die Geschichte des Filmabends</title>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+
+  
+  <script src="https://unpkg.com/scrollama"></script>
+
+  
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav-sticky" id="nav">
+    <span class="nav-title">Die Geschichte des Filmabends</span>
+    <div class="nav-dots">
+      <span class="nav-dot active" data-chapter="0" title="Intro"></span>
+      <span class="nav-dot" data-chapter="1" title="Kapitel 1"></span>
+      <span class="nav-dot" data-chapter="2" title="Kapitel 2"></span>
+      <span class="nav-dot" data-chapter="3" title="Kapitel 3"></span>
+      <span class="nav-dot" data-chapter="4" title="Kapitel 4"></span>
+      <span class="nav-dot" data-chapter="5" title="Kapitel 5"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+  </nav>
+
+  <!-- Einstieg -->
+  <section class="hero" id="section-0">
+    <div class="hero-content">
+      <span class="hero-chip">Eine Datengeschichte · Deutschland 2000–2025</span>
+      <h1 class="hero-title">Die Geschichte<br>des <span class="highlight">Filmabends</span></h1>
+      <p class="hero-sub">Wo schauen wir heute Filme?<br>25 Jahre Kino und Streaming erzählen von Gewohnheiten, Umbrüchen und einem Medienwandel, der unseren Filmabend grundlegend verändert hat.</p>
+      <div class="scroll-indicator">
+        <span class="scroll-arrow">↓</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kapitel 1: 2000–2013 -->
+  <section class="chapter" id="section-1">
+    <div class="chapter-text">
+      <span class="chapter-label">Kapitel 01 · 2000–2013</span>
+      <h2 class="chapter-title">Als der Filmabend noch dem Kino gehörte</h2>
+      <p class="chapter-body">2001 strömen 177,9 Millionen Menschen in deutsche Kinos. Ein Rekordjahr. Filme wie „Harry Potter" oder „Der Herr der Ringe" prägen eine Zeit, in der der Kinobesuch fester Bestandteil vieler Wochenenden ist. Noch deutet wenig darauf hin, dass sich dieses Gleichgewicht bald grundlegend verändern wird.</p>
+    </div>
+    <div class="filter-row" data-chart="chart-1">
+      <button class="filter-btn active" data-metric="kinobesucher_mio">Kinobesucher</button>
+      <button class="filter-btn" data-metric="kinoumsatz_mio_eur">Umsatz</button>
+      <button class="filter-btn" data-metric="durchschn_ticketpreis_eur">Ticketpreis</button>
+    </div>
+    <div class="chart-container" id="chart-1"></div>
+    <p class="chart-source">Quelle: FFA – Filmförderungsanstalt (2025). <a href="https://www.ffa.de/marktdaten.html#studien" target="_blank" rel="noopener">Marktdaten zur Kinobesucherentwicklung in Deutschland</a>.</p>
+  </section>
+
+  <!-- Übergang 1 -->
+  <section class="cliffhanger-section" id="cliff-1">
+    <div class="cliffhanger-inner">
+      <p class="cliffhanger-title">Doch im September 2014 betritt ein neuer Akteur den deutschen Markt – und mit ihm beginnt eine Veränderung, die den Filmabend Schritt für Schritt neu definiert.</p>
+      <span class="cliffhanger-arrow-down">↓</span>
+    </div>
+  </section>
+
+  <!-- Kapitel 2: 2014–2019 -->
+  <section class="chapter chapter-dark" id="section-2">
+    <div class="chapter-text">
+      <span class="chapter-label">Kapitel 02 · 2014–2019</span>
+      <h2 class="chapter-title">Die stille Revolution:<br>Streaming verändert den Markt</h2>
+      <p class="chapter-body">Im September 2014 startet Netflix in Deutschland. Im Vergleich zum Kinomarkt wirkt Streaming zunächst noch klein, wächst jedoch Jahr für Jahr.</p>
+      <p class="chapter-body">Während die Einnahmen im Kino stagnieren, gewinnt Streaming kontinuierlich an Bedeutung. 2018 nähern sich beide Kurven erstmals sichtbar an.</p>
+    </div>
+    <div class="chart-container" id="chart-2"></div>
+    <p class="chart-source">Quelle: FFA – Filmförderungsanstalt (2025). <a href="https://www.ffa.de/marktdaten.html#studien" target="_blank" rel="noopener">Marktdaten zur Kinobesucherentwicklung in Deutschland</a>; FFA (2026). <a href="https://de.statista.com/statistik/daten/studie/523307/umfrage/umsaetze-mit-subscription-video-on-demand-in-deutschland/" target="_blank" rel="noopener">Umsätze mit SVoD in Deutschland 2015–2025</a>. In Statista.</p>
+  </section>
+
+  <!-- Übergang 2 -->
+  <section class="cliffhanger-section" id="cliff-2">
+    <div class="cliffhanger-inner">
+      <p class="cliffhanger-title">2019 ist Streaming längst kein Nischenphänomen mehr. Doch bevor sich ein neues Gleichgewicht einpendeln kann, erschüttert ein Ereignis beide Welten gleichzeitig.</p>
+      <span class="cliffhanger-arrow-down">↓</span>
+    </div>
+  </section>
+
+  <!-- Kapitel 3: 2020–2021 -->
+  <section class="chapter" id="section-3">
+    <div class="chapter-text">
+      <span class="chapter-label">Kapitel 03 · 2020–2021</span>
+      <h2 class="chapter-title">Alles bleibt zu Hause</h2>
+      <p class="chapter-body">Innerhalb eines Jahres verändert sich der Markt radikal: Die Kinobesuche brechen um 68 Prozent ein. Säle bleiben monatelang geschlossen. 2020 sinkt die Besucherzahl auf 38,1 Millionen – den niedrigsten Wert unserer Zeitreihe.</p>
+      <p class="chapter-body">Streaming hingegen wird plötzlich zum selbstverständlichen Teil des Alltags. Der Filmabend findet weiterhin statt – nur immer häufiger im eigenen Wohnzimmer.</p>
+    </div>
+    <div class="kpi-row">
+      <div class="kpi-card">
+        <div class="kpi-number" id="kpi-einbruch" data-target="-68" data-suffix="%">0%</div>
+        <div class="kpi-label">Veränderung Kinobesucher 2019 → 2020</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number" id="kpi-besucher" data-target="38.1" data-suffix=" Mio." data-decimals="1">0 Mio.</div>
+        <div class="kpi-label">Kinobesucher im Jahr 2020</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-number" id="kpi-streaming" data-target="1.57" data-suffix=" Mrd. €" data-decimals="2">0 Mrd. €</div>
+        <div class="kpi-label">Streaming-Umsatz DE 2020</div>
+      </div>
+    </div>
+    <div class="chart-container" id="chart-3"></div>
+    <p class="chart-source">Quelle: FFA – Filmförderungsanstalt (2025). <a href="https://www.ffa.de/marktdaten.html#studien" target="_blank" rel="noopener">Marktdaten zur Kinobesucherentwicklung in Deutschland</a>.</p>
+  </section>
+
+  <!-- Übergang 3 -->
+  <section class="cliffhanger-section" id="cliff-3">
+    <div class="cliffhanger-inner">
+      <p class="cliffhanger-title">Ab 2022 öffnen die Kinos wieder. Doch kehrt auch das Publikum zurück – oder hat sich der Filmabend dauerhaft verändert?</p>
+      <span class="cliffhanger-arrow-down">↓</span>
+    </div>
+  </section>
+
+  <!-- Kapitel 4: 2022–2025 -->
+  <section class="chapter chapter-dark" id="section-4">
+    <div class="chapter-text">
+      <span class="chapter-label">Kapitel 04 · 2022–2025</span>
+      <h2 class="chapter-title">Die neue Normalität</h2>
+      <p class="chapter-body">Die Kinos füllen sich wieder: 2023 erreichen sie mit 95,7 Millionen Besuchen fast das Niveau vor der Pandemie. Gleichzeitig zeigt sich, dass sich die Rahmenbedingungen verändert haben. Kinotickets sind deutlich teurer geworden – von durchschnittlich 8,63 Euro im Jahr 2019 auf über 10 Euro im Jahr 2025.</p>
+      <p class="chapter-body">Streaming ist inzwischen Alltag. Der Filmabend ist zurück – aber er sieht heute anders aus als noch vor zehn Jahren.</p>
+    </div>
+    <div class="filter-row" data-chart="chart-4">
+      <button class="filter-btn active" data-metric="kinobesucher_mio">Kinobesucher</button>
+      <button class="filter-btn" data-metric="kinoumsatz_mio_eur">Umsatz</button>
+      <button class="filter-btn" data-metric="durchschn_ticketpreis_eur">Ticketpreis</button>
+    </div>
+    <div class="chart-container" id="chart-4"></div>
+    <p class="chart-source">Quelle: FFA – Filmförderungsanstalt (2025). <a href="https://www.ffa.de/marktdaten.html#studien" target="_blank" rel="noopener">Marktdaten zur Kinobesucherentwicklung in Deutschland</a>.</p>
+  </section>
+
+  <!-- Übergang 4 -->
+  <section class="cliffhanger-section" id="cliff-4">
+    <div class="cliffhanger-inner">
+      <p class="cliffhanger-title">Kino erholt sich. Streaming wächst weiter. Die entscheidende Frage ist nicht mehr, ob sich etwas verändert hat – sondern wie der Filmabend in Zukunft aussehen wird.</p>
+      <span class="cliffhanger-arrow-down">↓</span>
+    </div>
+  </section>
+
+  <!-- Kapitel 5: Ausblick bis 2029 -->
+  <section class="chapter" id="section-5">
+    <div class="chapter-text">
+      <span class="chapter-label">Kapitel 05 · Ausblick bis 2029</span>
+      <h2 class="chapter-title">Der Filmabend von morgen</h2>
+      <p class="chapter-body">Marktanalysen zeigen: Bis 2029 wächst S-VoD auf fast 4,8 Milliarden Euro. Noch dynamischer entwickeln sich werbefinanzierte Angebote, deren Umsatz sich nahezu verdoppeln soll.</p>
+      <p class="chapter-body">Die Richtung scheint klar. Doch Zahlen allein beantworten nicht die wichtigste Frage: Was bedeutet diese Entwicklung für das Kino – und für unseren persönlichen Filmabend?</p>
+    </div>
+    <div class="chart-container" id="chart-5"></div>
+    <p class="chart-source">Quelle: FFA (2026). <a href="https://de.statista.com/statistik/daten/studie/523307/umfrage/umsaetze-mit-subscription-video-on-demand-in-deutschland/" target="_blank" rel="noopener">Umsätze mit T-VoD, S-VoD und A-VoD in Deutschland 2012–2024 und Prognosen bis 2029</a>. In Statista.</p>
+  </section>
+
+  <!-- Abschlussfrage -->
+  <section class="cliffhanger-section" id="closing-section">
+    <div class="cliffhanger-inner" style="text-align:center; max-width: 600px;">
+      <div class="closing-question">
+        <p class="closing-text">Und du — wo schaust du heute Filme?</p>
+      </div>
+      <div class="poll-options" id="pollMain">
+        <button class="poll-option" data-value="kino">Kino</button>
+        <button class="poll-option" data-value="streaming">Streaming</button>
+        <button class="poll-option" data-value="beides">Beides</button>
+      </div>
+      <div class="poll-sub-options" id="pollStreamingProviders">
+        <button class="poll-sub-option" data-value="Netflix">Netflix</button>
+        <button class="poll-sub-option" data-value="Amazon Prime Video">Amazon Prime Video</button>
+        <button class="poll-sub-option" data-value="Disney+">Disney+</button>
+        <button class="poll-sub-option" data-value="Sky / WOW">Sky / WOW</button>
+        <button class="poll-sub-option" data-value="Anderer Dienst">Anderer Dienst</button>
+      </div>
+      <p class="poll-result" id="pollResult"></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-title">Quellen</p>
+    <p class="footer-source">FFA – Filmförderungsanstalt. (2025). <em>Marktdaten zur Kinobesucherentwicklung in Deutschland 2000–2025</em> [Jahresberichte]. <a href="https://www.ffa.de/marktdaten.html#studien" target="_blank" rel="noopener">https://www.ffa.de/marktdaten.html#studien</a></p>
+    <p class="footer-source">FFA. (2026, 22. April). <em>Umsätze mit Subscription-Video-on-Demand (SVoD) in Deutschland in den Jahren 2015 bis 2025 (in Millionen Euro)</em> [Graph]. In Statista. Zugriff am 10. Juni 2026, von <a href="https://de.statista.com/statistik/daten/studie/523307/umfrage/umsaetze-mit-subscription-video-on-demand-in-deutschland/" target="_blank" rel="noopener">https://de.statista.com/statistik/daten/studie/523307/umfrage/umsaetze-mit-subscription-video-on-demand-in-deutschland/</a></p>
+    <p class="footer-source">FFA. (2026). <em>Umsätze mit T-VoD, S-VoD und A-VoD in Deutschland in den Jahren 2012 bis 2024 und Prognosen bis 2029 (in Millionen Euro)</em> [Graph]. In Statista. Zugriff am 10. Juni 2026, von <a href="https://de.statista.com/statistik/daten/studie/523307/umfrage/umsaetze-mit-subscription-video-on-demand-in-deutschland/" target="_blank" rel="noopener">https://de.statista.com/statistik/daten/studie/523307/umfrage/umsaetze-mit-subscription-video-on-demand-in-deutschland/</a></p>
+    <p class="footer-source">Hess, C. &amp; Rhody, A. (2023). Eine neue Phase in der Nutzung von Bewegtbild. <em>Media Perspektiven</em>, 24/2023. <a href="https://www.ard-media.de/fileadmin/user_upload/media-perspektiven/pdf/2023/MP_24_2023_Onlinestudie_2023_Bewegtbild_final.pdf" target="_blank" rel="noopener">https://www.ard-media.de/fileadmin/user_upload/media-perspektiven/pdf/2023/MP_24_2023_Onlinestudie_2023_Bewegtbild_final.pdf</a></p>
+    <p class="footer-copy">Hochschulprojekt · Modul Interaktive Medien · 2026<br>Evelyne Maier, 6. Semester Bachelor Medienmanagement</p>
+  </footer>
+
+  <!-- Back-to-Top Button -->
+  <button class="back-to-top" id="backToTop" aria-label="Nach oben scrollen" title="Zum Anfang">↑</button>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/charts.js"></script>
+
+</body>
+</html>
